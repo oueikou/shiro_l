@@ -11,3 +11,8 @@
 target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
 target/m2e-wtp/web-resources/META-INF/maven/com.yh/shiro_l/pom.properties
 target/m2e-wtp/web-resources/META-INF/maven/com.yh/shiro_l/pom.xml
+target/classes/shiro.ini
+target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst
+target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst
+target/test-classes/shiroTest/LoginLogoutTest.class

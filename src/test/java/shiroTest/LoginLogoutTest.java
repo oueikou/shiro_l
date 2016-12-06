@@ -6,10 +6,10 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.config.IniSecurityManagerFactory;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.util.Assert;
 import org.apache.shiro.util.Factory;
 import org.junit.Test;
 
-import junit.framework.Assert;
 
 public class LoginLogoutTest {
 
@@ -34,7 +34,7 @@ public class LoginLogoutTest {
 			e.printStackTrace();
 		}
 		// 7.断言用户已登录
-		Assert.assertEquals(true, subject.isAuthenticated());
+		Assert.isTrue(subject.isAuthenticated(), "用户登录失败");
 		// 8.退出登录
 		subject.logout();
 	}
