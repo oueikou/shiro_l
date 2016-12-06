@@ -19,6 +19,9 @@ public class LoginLogoutTest {
 	*/
 	private static final Logger logger = Logger.getLogger(LoginLogoutTest.class);
 
+	/**
+	 * 测试登录登出
+	 */
 	@Test
 	public void testHelloWord(){
 		// 1.获取SecurityManager工厂
@@ -44,6 +47,9 @@ public class LoginLogoutTest {
 		subject.logout();
 	}
 	
+	/**
+	 * 测试单realm
+	 */
 	@Test
 	public void testCustomRealm(){
 		Factory<SecurityManager> factory = new IniSecurityManagerFactory("classpath:shiro-realm.ini");
@@ -51,6 +57,31 @@ public class LoginLogoutTest {
 		SecurityUtils.setSecurityManager(securityManager);
 		Subject subject = SecurityUtils.getSubject();
 		UsernamePasswordToken token = new UsernamePasswordToken("zhangsan", "1234");
+		try {
+			subject.login(token);
+			if(subject.isAuthenticated()){
+				logger.info("登录成功！");
+			}
+			logger.info("开始登出。。。");
+			subject.logout();
+			if(!subject.isAuthenticated()){
+				logger.info("登出成功！");
+			}
+		} catch (AuthenticationException e) {
+			logger.error("shiro登录异常!"+e.getMessage(), e);
+		}
+	}
+	
+	/**
+	 * 测试多realm
+	 */
+	@Test
+	public void testCustomMultiRealm(){
+		Factory<SecurityManager> factory = new IniSecurityManagerFactory("classpath:shiro-multi-realm.ini");
+		SecurityManager securityManager = factory.getInstance();
+		SecurityUtils.setSecurityManager(securityManager);
+		Subject subject = SecurityUtils.getSubject();
+		UsernamePasswordToken token = new UsernamePasswordToken("wang", "123");
 		try {
 			subject.login(token);
 			if(subject.isAuthenticated()){
