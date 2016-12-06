@@ -36,12 +36,34 @@ public class LoginLogoutTest {
 			// 6.登录
 			subject.login(token);
 		} catch (AuthenticationException e) {
-			logger.error("shiro登录异常", e);
+			logger.error("shiro登录异常!", e);
 		}
 		// 7.断言用户已登录
 		Assert.isTrue(subject.isAuthenticated(), "用户登录失败");
 		// 8.退出登录
 		subject.logout();
+	}
+	
+	@Test
+	public void testCustomRealm(){
+		Factory<SecurityManager> factory = new IniSecurityManagerFactory("classpath:shiro-realm.ini");
+		SecurityManager securityManager = factory.getInstance();
+		SecurityUtils.setSecurityManager(securityManager);
+		Subject subject = SecurityUtils.getSubject();
+		UsernamePasswordToken token = new UsernamePasswordToken("zhangsan", "1234");
+		try {
+			subject.login(token);
+			if(subject.isAuthenticated()){
+				logger.info("登录成功！");
+			}
+			logger.info("开始登出。。。");
+			subject.logout();
+			if(!subject.isAuthenticated()){
+				logger.info("登出成功！");
+			}
+		} catch (AuthenticationException e) {
+			logger.error("shiro登录异常!"+e.getMessage(), e);
+		}
 	}
 	
 }
