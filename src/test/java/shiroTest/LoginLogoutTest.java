@@ -1,5 +1,7 @@
 package shiroTest;
 
+import org.apache.log4j.Logger;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -12,6 +14,10 @@ import org.junit.Test;
 
 
 public class LoginLogoutTest {
+	/**
+	* Logger for this class
+	*/
+	private static final Logger logger = Logger.getLogger(LoginLogoutTest.class);
 
 	@Test
 	public void testHelloWord(){
@@ -30,8 +36,7 @@ public class LoginLogoutTest {
 			// 6.登录
 			subject.login(token);
 		} catch (AuthenticationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("shiro登录异常", e);
 		}
 		// 7.断言用户已登录
 		Assert.isTrue(subject.isAuthenticated(), "用户登录失败");
