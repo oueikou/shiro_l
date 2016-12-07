@@ -9,10 +9,10 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.realm.Realm;
 
-public class MyRealm1 implements Realm {
+public class MyRealm3 implements Realm {
 
 	public String getName() {
-		return "myrealm1";
+		return "myrealm3";
 	}
 
 	public boolean supports(AuthenticationToken token) {
@@ -23,7 +23,7 @@ public class MyRealm1 implements Realm {
 	public AuthenticationInfo getAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 		String userName = (String)token.getPrincipal(); // 获取用户名
 		String password = String.valueOf((char[])token.getCredentials()); // 获取密码
-		if(!"zhang".equals(userName)){
+		if(!"qian".equals(userName)){
 			throw new UnknownAccountException("用户名错误");
 		}
 		if(!"123".equals(password)){
