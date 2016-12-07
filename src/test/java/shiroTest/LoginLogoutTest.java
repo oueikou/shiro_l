@@ -97,4 +97,29 @@ public class LoginLogoutTest {
 		}
 	}
 	
+	/**
+	 * 测试jdbc realm
+	 */
+	@Test
+	public void testJDBCRealm(){
+		Factory<SecurityManager> factory = new IniSecurityManagerFactory("classpath:shiro-jdbc-realm.ini");
+		SecurityManager securityManager = factory.getInstance();
+		SecurityUtils.setSecurityManager(securityManager);
+		Subject subject = SecurityUtils.getSubject();
+		UsernamePasswordToken token = new UsernamePasswordToken("zhang", "123");
+		try {
+			subject.login(token);
+			if(subject.isAuthenticated()){
+				logger.info("登录成功！");
+			}
+			logger.info("开始登出。。。");
+			subject.logout();
+			if(!subject.isAuthenticated()){
+				logger.info("登出成功！");
+			}
+		} catch (AuthenticationException e) {
+			logger.error("shiro登录异常!"+e.getMessage(), e);
+		}
+	}
+	
 }
