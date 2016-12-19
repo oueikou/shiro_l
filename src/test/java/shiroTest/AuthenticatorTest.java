@@ -1,7 +1,5 @@
 package shiroTest;
 
-import org.apache.log4j.Logger;
-
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.config.IniSecurityManagerFactory;
@@ -9,12 +7,14 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.Factory;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AuthenticatorTest {
 	/**
 	* Logger for this class
 	*/
-	private static final Logger logger = Logger.getLogger(AuthenticatorTest.class);
+	private static final Logger logger = LoggerFactory.getLogger(AuthenticatorTest.class);
 
 	private void login(String configFile) {
 		// 1、获取SecurityManager工厂，此处使用Ini配置文件初始化SecurityManager

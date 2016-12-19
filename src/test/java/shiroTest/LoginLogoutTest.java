@@ -1,7 +1,5 @@
 package shiroTest;
 
-import org.apache.log4j.Logger;
-
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -11,13 +9,17 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.Assert;
 import org.apache.shiro.util.Factory;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import shiro_l.utils.ShiroUtil;
 
 
 public class LoginLogoutTest {
 	/**
 	* Logger for this class
 	*/
-	private static final Logger logger = Logger.getLogger(LoginLogoutTest.class);
+	private static final Logger logger = LoggerFactory.getLogger(LoginLogoutTest.class);
 
 	/**
 	 * 测试登录登出
@@ -121,5 +123,19 @@ public class LoginLogoutTest {
 			logger.error("shiro登录异常!"+e.getMessage(), e);
 		}
 	}
+	
+	
+	@Test
+	public void testShiroUtil(){
+		Subject subject = ShiroUtil.doLogin("classpath:shiro.ini", "zhang", "123");
+		if (subject.isAuthenticated()) {
+			logger.info("====已成功登录");
+			subject.logout();
+		} else {
+			logger.info("====未成功登录");
+		}
+		
+	}
+	
 	
 }
